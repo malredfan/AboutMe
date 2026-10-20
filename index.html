@@ -1,0 +1,2086 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محمد  آل ردفان | الأمن السيبراني</title>
+    
+    <meta property="og:title" content="محمد آل ردفان | الأمن السيبراني">
+    <meta property="og:description" content="خريج بكالوريوس الأمن السيبراني. أطمح للإسهام في بناء بيئة رقمية آمنة وموثوقة.">
+    <meta property="og:type" content="website">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%231a4331%22 font-family=%22sans-serif%22 font-weight=%22bold%22>M</text></svg>">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #1a4331;
+            --secondary-color: #112a1f;
+            --accent-color: #d4af37;
+            --text-dark: #1e293b;
+            --text-light: #475569;
+            --bg-light: #f8f9fa;
+            --bg-card: #ffffff;
+            --border-color: #e2e8f0;
+            --glow-color: rgba(26, 67, 49, 0.2);
+        }
+
+        body.dark-mode {
+            --primary-color: #38bdf8;
+            --secondary-color: #0f172a;
+            --accent-color: #fbbf24;
+            --text-dark: #f8fafc;
+            --text-light: #94a3b8;
+            --bg-light: #0f172a;
+            --bg-card: #1e293b;
+            --border-color: #334155;
+            --glow-color: rgba(56, 189, 248, 0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            line-height: 1.8;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding-top: 80px; 
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+
+        body.en-mode { font-family: 'Cairo', sans-serif; direction: ltr; }
+        body.en-mode h2::before { margin-left: 0; margin-right: 15px; }
+        body.en-mode .timeline::before { right: auto; left: 20px; }
+        body.en-mode .timeline-item::before { right: auto; left: -7px; }
+
+        /* =========================================
+           الشريط العلوي
+           ========================================= */
+        .navbar {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 40px;
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            will-change: transform, opacity;
+            transition:
+                transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.15s ease-out,
+                background-color 0.3s,
+                box-shadow 0.3s;
+        }
+
+        .navbar.nav-hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+            box-shadow: none;
+            transition:
+                transform 0.2s cubic-bezier(0.4, 0, 1, 1),
+                opacity 0.15s ease-in,
+                box-shadow 0.15s;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            align-items: center;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        .nav-links > li { position: static; }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.05em;
+            padding: 10px 0;
+            transition: color 0.3s ease;
+            display: block;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .nav-links a:hover { color: var(--primary-color); }
+        
+        .nav-links a.active { color: var(--primary-color); }
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary-color);
+            border-radius: 2px;
+            animation: navLineIn 0.3s ease;
+        }
+        @keyframes navLineIn { from { width: 0; } to { width: 100%; } }
+
+        a:focus-visible, button:focus-visible {
+            outline: 3px solid var(--accent-color);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            width: 44px;
+            height: 44px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            border-radius: 8px;
+            transition: background 0.3s;
+            flex-shrink: 0;
+        }
+
+        .hamburger:hover { background: var(--bg-light); }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2.5px;
+            background: var(--text-dark);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .hamburger.active span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .hamburger.active span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+        .header-actions { display: flex; gap: 10px; align-items: center; }
+
+        .action-btn, .search-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px; height: 45px;
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            background: transparent;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            padding: 0; overflow: hidden;
+        }
+
+        .action-btn:hover, .search-box:hover {
+            background: var(--primary-color);
+            color: var(--bg-light);
+        }
+
+        .search-box { width: 45px; transition: width 0.4s ease; }
+        .search-box.active { width: 200px; }
+        
+        .search-box input {
+            width: 0; border: none; background: transparent; color: inherit;
+            font-family: inherit; outline: none; transition: width 0.4s ease, padding 0.4s ease;
+            padding: 0; opacity: 0;
+        }
+
+        .search-box.active input { width: 150px; padding: 0 10px; opacity: 1; }
+
+        .search-box button {
+            background: transparent; border: none; color: inherit;
+            cursor: pointer; width: 100%; height: 100%; display: flex;
+            align-items: center; justify-content: center;
+        }
+
+        /* =========================================
+           قسم الترحيب (Hero Section)
+           ========================================= */
+        .hero {
+            min-height: calc(100vh - 80px); 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            background: radial-gradient(circle at center, var(--bg-card) 0%, var(--bg-light) 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(var(--border-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.1;
+            z-index: 0;
+            pointer-events: none;
+        }
+        body.dark-mode .hero::before { opacity: 0.05; }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .hero-greeting {
+            display: inline-block;
+            padding: 8px 16px;
+            background: var(--glow-color);
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1em;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            font-weight: 800;
+            color: var(--text-dark);
+            line-height: 1.3;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 span {
+            color: var(--primary-color);
+        }
+
+        .hero-role {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .hero-desc {
+            font-size: 1.2em;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 40px;
+            background: var(--primary-color);
+            color: var(--bg-light);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            border: 2px solid var(--primary-color);
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .hero-btn:hover {
+            background: transparent;
+            color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px var(--glow-color);
+        }
+
+        /* =========================================
+           باقي الأقسام
+           ========================================= */
+        .section { padding: 80px 20px; max-width: 1000px; margin: 0 auto; }
+
+        section[id] { scroll-margin-top: 100px; }
+        
+        .section-title {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            margin-bottom: 50px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title::before, .section-title::after {
+            content: ''; display: inline-block; width: 50px; height: 3px;
+            background: var(--accent-color); margin: 0 20px; border-radius: 3px;
+        }
+
+        .about-text {
+            font-size: 1.15em;
+            color: var(--text-light);
+            text-align: justify;
+            max-width: 850px;
+            margin: 0 auto 50px;
+            position: relative;
+            z-index: 1;
+            line-height: 1.9;
+        }
+
+        #matrix-canvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            pointer-events: none;
+        }
+
+        body.dark-mode #matrix-canvas { opacity: 0.15; }
+
+        .timeline { position: relative; max-width: 800px; margin: 0 auto; padding: 20px 40px; z-index: 1; }
+        .timeline::before {
+            content: ''; position: absolute; right: 20px; top: 0; bottom: 0;
+            width: 4px; background: var(--border-color); border-radius: 2px;
+        }
+        .timeline-item {
+            position: relative; margin-bottom: 30px; background: var(--bg-card);
+            padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color); transition: transform 0.3s;
+        }
+        .timeline-item:hover { transform: translateY(-5px); border-color: var(--primary-color); }
+        .timeline-item::before {
+            content: ''; position: absolute; right: -27px; top: 30px;
+            width: 14px; height: 14px; background: var(--primary-color);
+            border: 3px solid var(--bg-light); border-radius: 50%;
+            box-shadow: 0 0 10px var(--glow-color);
+        }
+        .timeline-date {
+            display: inline-block; padding: 3px 12px; background: var(--primary-color);
+            color: #fff; border-radius: 20px; font-size: 0.85em; margin-bottom: 10px;
+        }
+        .timeline-item h3 { color: var(--text-dark); font-size: 1.25em; margin-bottom: 5px; }
+
+        .skills-grid, .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; max-width: 900px; margin: 0 auto; }
+        .skill-card, .cert-card {
+            background: transparent; border: none; padding: 10px; text-align: center;
+            transition: transform 0.3s;
+        }
+        .skill-card:hover, .cert-card:hover { transform: translateY(-5px); }
+        .skill-card i, .cert-card i { font-size: 3.5em; margin-bottom: 15px; }
+        .skill-card i { color: var(--primary-color); }
+        .cert-card i { color: var(--accent-color); }
+        .skill-card h3 { color: var(--text-dark); font-size: 1.3em; }
+        
+        .certs-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        .cert-card h3 { 
+            color: var(--text-dark); font-size: 1em; margin-bottom: 5px; 
+            font-weight: 800; white-space: nowrap; overflow: hidden; 
+            text-overflow: ellipsis; width: 100%;
+        }
+        .cert-company { 
+            color: var(--primary-color); font-weight: 700; font-size: 0.95em; 
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;
+        }
+
+        .tech-stack-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px; max-width: 900px; margin: 0 auto;
+        }
+        .tech-item {
+            background: transparent; border: none; padding: 15px;
+            display: flex; align-items: center; justify-content: center;
+            gap: 15px; font-weight: 700; font-size: 1.2em;
+            color: var(--text-dark); transition: all 0.3s; font-family: 'Cairo', sans-serif;
+        }
+        .tech-item i { font-size: 2em; color: var(--primary-color); }
+        .tech-item:hover { transform: translateY(-5px); color: var(--primary-color); }
+
+        .certs-grid { margin-bottom: 50px; }
+
+        .blog-grid { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 25px; max-width: 1000px; margin: 0 auto; 
+        }
+        .blog-card {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 12px; overflow: hidden; transition: all 0.3s;
+            display: flex; flex-direction: column;
+        }
+        .blog-card:hover { 
+            transform: translateY(-5px); box-shadow: 0 10px 25px var(--glow-color); 
+            border-color: var(--primary-color);
+        }
+        .blog-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .blog-content h3 { color: var(--text-dark); font-size: 1.1em; margin-bottom: 10px; line-height: 1.4; }
+        .blog-content p { color: var(--text-light); font-size: 0.9em; margin-bottom: 20px; flex-grow: 1; }
+        .blog-link {
+            display: inline-flex; align-items: center; gap: 8px; 
+            color: var(--primary-color); font-weight: 700; text-decoration: none;
+            transition: gap 0.3s; cursor: pointer; background: none; border: none;
+            font-family: inherit; font-size: 1em; padding: 0; margin-top: auto;
+        }
+        .blog-link:hover { gap: 12px; }
+
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .project-card {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 12px; overflow: hidden; transition: all 0.3s;
+            display: flex; flex-direction: column;
+        }
+        .project-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px var(--glow-color); }
+        .project-info { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; text-align: center; }
+        .project-info h3 { color: var(--primary-color); margin-bottom: 15px; font-size: 1.3em; }
+        .project-info p { color: var(--text-light); font-size: 0.95em; margin-bottom: 20px; line-height: 1.6; flex-grow: 1; }
+        .project-link {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px; 
+            padding: 10px 20px; background: transparent; color: var(--primary-color); 
+            text-decoration: none; border: 2px solid var(--primary-color); 
+            border-radius: 6px; font-size: 0.9em; font-weight: 700;
+            transition: all 0.3s; margin-top: auto; align-self: center;
+        }
+        .project-link:hover { background: var(--primary-color); color: var(--bg-light); }
+
+        /* =========================================
+           نموذج التواصل
+           ========================================= */
+        .contact-form {
+            max-width: 600px; margin: 0 auto; background: var(--bg-card);
+            padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+        .form-group { margin-bottom: 20px; position: relative; }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 15px; border: 1px solid var(--border-color);
+            border-radius: 8px; font-family: inherit; background: var(--bg-light);
+            color: var(--text-dark); outline: none; transition: border-color 0.3s;
+        }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary-color); box-shadow: 0 0 0 3px var(--glow-color); }
+        
+        .form-group input.invalid, .form-group textarea.invalid {
+            border-color: #ef4444 !important;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+        }
+        .field-error {
+            display: none;
+            color: #ef4444;
+            font-size: 0.85em;
+            margin-top: 6px;
+            font-weight: 600;
+            text-align: right;
+        }
+        body.en-mode .field-error { text-align: left; }
+        .form-group input.invalid ~ .field-error,
+        .form-group textarea.invalid ~ .field-error { display: block; }
+
+        .submit-btn {
+            width: 100%; padding: 15px; background: var(--primary-color);
+            color: #fff; border: none; border-radius: 8px;
+            font-family: inherit; font-weight: 700; cursor: pointer; font-size: 1.1em;
+            transition: all 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px;
+        }
+        .submit-btn:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 5px 15px var(--glow-color); }
+        .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        .form-status {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-align: center;
+            font-size: 1em;
+            animation: statusIn 0.3s ease;
+        }
+        @keyframes statusIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .form-status.success {
+            display: block;
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+        .form-status.error {
+            display: block;
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+        body.dark-mode .form-status.success { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border-color: rgba(16, 185, 129, 0.5); }
+        body.dark-mode .form-status.error { background: rgba(239, 68, 68, 0.15); color: #fca5a5; border-color: rgba(239, 68, 68, 0.5); }
+
+        /* =========================================
+           الفوتر الاحترافي (Corporate Footer)
+           ========================================= */
+        .site-footer {
+            background: #0d1a15;
+            color: #94a3b8;
+            margin-top: auto;
+            font-family: 'Tajawal', sans-serif;
+            position: relative;
+            border-top: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .footer-main {
+            padding: 70px 24px 55px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2.2fr 1fr 1fr 1.3fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        /* ---------- عمود الهوية ---------- */
+        .footer-brand-col { padding-right: 0; }
+
+        .footer-tagline {
+            color: #94a3b8;
+            font-size: 0.95em;
+            line-height: 1.75;
+            margin-bottom: 28px;
+            max-width: 380px;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 10px;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.04);
+            color: #94a3b8;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .social-link i { font-size: 1em; transition: color 0.25s ease; }
+
+        .social-link:hover {
+            background: var(--accent-color);
+            color: #0d1a15;
+            border-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(212, 175, 55, 0.25);
+        }
+
+        .social-link:hover i { color: #0d1a15; }
+
+        /* ---------- الأعمدة ---------- */
+        .footer-col h4 {
+            color: #ffffff;
+            font-size: 1.05em;
+            font-weight: 700;
+            margin-bottom: 24px;
+            position: relative;
+            padding-bottom: 14px;
+            letter-spacing: 0.3px;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 32px;
+            height: 2px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        body.en-mode .footer-col h4::after { right: auto; left: 0; }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .footer-col ul li a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.95em;
+            transition: all 0.25s ease;
+            display: inline-block;
+            position: relative;
+        }
+
+        .footer-col ul li a::before {
+            content: '';
+            position: absolute;
+            right: -14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 1.5px;
+            background: var(--accent-color);
+            transition: width 0.25s ease;
+        }
+
+        body.en-mode .footer-col ul li a::before { right: auto; left: -14px; }
+
+        .footer-col ul li a:hover {
+            color: var(--accent-color);
+            padding-right: 20px;
+        }
+
+        body.en-mode .footer-col ul li a:hover { padding-right: 0; padding-left: 20px; }
+
+        .footer-col ul li a:hover::before { width: 12px; }
+
+        /* ---------- معلومات التواصل ---------- */
+        .footer-contact {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .footer-contact li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.93em;
+            line-height: 1.6;
+            color: #cbd5e1;
+        }
+
+        .footer-contact li i {
+            color: var(--accent-color);
+            margin-top: 4px;
+            font-size: 0.9em;
+            flex-shrink: 0;
+            width: 16px;
+            text-align: center;
+        }
+
+        .footer-contact a {
+            color: #cbd5e1;
+            text-decoration: none;
+            direction: ltr;
+            display: inline-block;
+            font-family: 'Cairo', monospace;
+            font-size: 0.95em;
+            transition: color 0.25s ease;
+        }
+
+        .footer-contact a:hover { color: var(--accent-color); }
+
+        /* ---------- الشريط السفلي ---------- */
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 22px 24px;
+            background: rgba(0, 0, 0, 0.25);
+        }
+
+        .footer-bottom-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-bottom .copyright {
+            color: #64748b;
+            font-size: 0.88em;
+            margin: 0;
+            letter-spacing: 0.2px;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            font-size: 0.88em;
+        }
+
+        .footer-legal a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.25s ease;
+        }
+
+        .footer-legal a:hover { color: var(--accent-color); }
+
+        .footer-legal span { color: #475569; user-select: none; }
+
+        /* ---------- الاستجابة للشاشات ---------- */
+        @media (max-width: 992px) {
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 45px;
+            }
+            .footer-brand-col { grid-column: 1 / -1; }
+            .footer-tagline { max-width: 100%; }
+        }
+
+        @media (max-width: 600px) {
+            .footer-main { padding: 50px 20px 40px; }
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 38px;
+            }
+            .footer-bottom { padding: 20px; }
+            .footer-bottom-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .footer-legal { justify-content: center; }
+            .footer-socials { flex-wrap: wrap; }
+        }
+
+        /* =========================================
+           زر العودة للأعلى (Back to Top) — نصي
+           ========================================= */
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            height: 48px;
+            padding: 0 22px;
+            border-radius: 999px;
+            background: var(--primary-color);
+            color: #fff;
+            border: 2px solid var(--primary-color);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 0.95em;
+            font-weight: 700;
+            font-family: inherit;
+            white-space: nowrap;
+            box-shadow: 0 4px 15px var(--glow-color);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        #backToTop i {
+            font-size: 1em;
+            transition: transform 0.3s ease;
+        }
+
+        #backToTop:hover {
+            background: transparent;
+            color: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px var(--glow-color);
+        }
+
+        #backToTop:hover i {
+            transform: translateY(-3px);
+        }
+
+        body.en-mode #backToTop {
+            left: auto;
+            right: 30px;
+        }
+
+        #backToTop.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px);
+            z-index: 2000; display: flex; justify-content: center; align-items: center;
+            opacity: 0; visibility: hidden; transition: all 0.3s ease;
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-content {
+            background: var(--bg-card); width: 90%; max-width: 800px; max-height: 85vh;
+            border-radius: 12px; padding: 40px; overflow-y: auto;
+            position: relative; transform: translateY(20px); transition: all 0.3s ease;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3); border: 1px solid var(--border-color);
+        }
+        .modal-overlay.active .modal-content { transform: translateY(0); }
+        .close-modal {
+            position: absolute; top: 20px; left: 20px;
+            background: var(--bg-light); border: 1px solid var(--border-color);
+            color: var(--text-dark); width: 35px; height: 35px;
+            border-radius: 50%; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; font-size: 1.2em; transition: all 0.3s;
+        }
+        body.en-mode .close-modal { left: auto; right: 20px; }
+        .close-modal:hover { background: var(--primary-color); color: #fff; }
+        
+        .modal-content h2 {
+            color: var(--primary-color); margin-bottom: 25px;
+            font-size: 1.8em; border-bottom: 2px solid var(--border-color); padding-bottom: 15px;
+        }
+        
+        .article-body { font-size: 1.1em; line-height: 1.9; color: var(--text-dark); }
+        .article-body p { margin-bottom: 20px; text-align: justify; }
+        .article-body h3 { color: var(--primary-color); margin-top: 30px; margin-bottom: 15px; font-size: 1.3em; }
+        .article-body ul, .article-body ol { margin-bottom: 20px; padding-right: 25px; }
+        body.en-mode .article-body ul, body.en-mode .article-body ol { padding-right: 0; padding-left: 25px; }
+        .article-body li { margin-bottom: 10px; text-align: justify; }
+        .article-body strong { color: var(--primary-color); }
+
+        @media (prefers-reduced-motion: reduce) {
+            .navbar, .navbar.nav-hidden { transition: none !important; }
+            html { scroll-behavior: auto; }
+        }
+
+        @media (max-width: 768px) {
+            body { padding-top: 60px; }
+
+            .navbar { padding: 0; height: 60px; flex-wrap: nowrap; }
+            .hamburger { display: flex; order: -1; margin: 0 8px; }
+            .header-actions { margin: 0 8px; gap: 6px; }
+            .action-btn, .search-box { width: 42px; height: 42px; font-size: 0.95em; }
+
+            .nav-links {
+                position: absolute; top: 100%; left: 0; right: 0;
+                flex-direction: column; align-items: stretch; gap: 0;
+                margin: 0; padding: 0; background: var(--bg-card);
+                border-bottom: 1px solid var(--border-color);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+                max-height: 0; overflow: hidden;
+                transition: max-height 0.4s ease; z-index: 5;
+            }
+            .nav-links a.active::after { display: none; }
+
+            .nav-links.active { max-height: 500px; }
+            .nav-links li { width: 100%; border-bottom: 1px solid var(--border-color); }
+            .nav-links li:last-child { border-bottom: none; }
+            .nav-links a { padding: 14px 20px; text-align: center; font-size: 1em; }
+
+            .search-box.active {
+                position: absolute; inset: 0; width: auto; height: auto;
+                border-radius: 0; border: none;
+                border-bottom: 2px solid var(--primary-color);
+                background: var(--bg-card); z-index: 10;
+                padding: 0 10px; justify-content: space-between; gap: 10px;
+            }
+            .search-box.active input { flex: 1; width: auto; opacity: 1; padding: 0 10px; font-size: 16px; }
+
+            .hero { min-height: calc(100vh - 60px); padding: 60px 15px; }
+            .hero h1 { font-size: 2.2em; }
+            .hero-role { font-size: 1.3em; }
+            .hero-desc { font-size: 1em; margin-bottom: 30px; }
+            .hero-btn { padding: 12px 30px; font-size: 1em; }
+
+            .section { padding: 50px 15px; }
+            .section-title { font-size: 1.6em; margin-bottom: 30px; }
+            .section-title::before, .section-title::after { width: 25px; margin: 0 10px; }
+            section[id] { scroll-margin-top: 70px; }
+
+            .about-text { font-size: 1em; line-height: 1.85; margin-bottom: 30px; }
+            #matrix-canvas { display: none; }
+
+            .timeline { padding: 15px 30px 15px 15px; }
+            .timeline::before { right: 15px; }
+            .timeline-item { padding: 20px 15px; }
+            .timeline-item::before { right: -20px; top: 20px; }
+            .timeline-item h3 { font-size: 1.1em; }
+
+            body.en-mode .timeline { padding: 15px 15px 15px 30px; }
+            body.en-mode .timeline::before { left: 15px; right: auto; }
+            body.en-mode .timeline-item::before { left: -20px; right: auto; }
+
+            .skills-grid { grid-template-columns: repeat(2, 1fr); gap: 20px 10px; }
+            .certs-grid { grid-template-columns: 1fr; gap: 20px; }
+            .tech-stack-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .skill-card i, .cert-card i { font-size: 2.5em; margin-bottom: 10px; }
+            .skill-card h3 { font-size: 1em; }
+            .tech-item { font-size: 1em; padding: 10px 5px; gap: 8px; }
+            .tech-item i { font-size: 1.5em; }
+
+            .projects-grid { grid-template-columns: 1fr; gap: 20px; }
+            .project-info { padding: 20px 15px; }
+            .project-info h3 { font-size: 1.15em; }
+            .project-info p { font-size: 0.9em; }
+
+            .blog-grid { grid-template-columns: 1fr; gap: 15px; }
+            .blog-content { padding: 20px 15px; }
+
+            .contact-form { padding: 25px 20px; }
+            .form-group input, .form-group textarea { padding: 12px; font-size: 16px; }
+            .submit-btn { padding: 14px; font-size: 1em; }
+
+            .modal-content { width: 95%; max-height: 90vh; padding: 25px 20px; border-radius: 8px; }
+            .modal-content h2 { font-size: 1.3em; margin-bottom: 20px; padding-bottom: 12px; }
+            .article-body { font-size: 1em; }
+            .close-modal { top: 10px; left: 10px; width: 32px; height: 32px; font-size: 1em; }
+            body.en-mode .close-modal { left: auto; right: 10px; }
+
+            #backToTop {
+                bottom: 18px;
+                left: 18px;
+                height: 42px;
+                padding: 0 16px;
+                font-size: 0.85em;
+                gap: 8px;
+            }
+            body.en-mode #backToTop { left: auto; right: 18px; }
+        }
+
+        @media (max-width: 380px) {
+            #backToTop {
+                padding: 0 14px;
+                font-size: 0.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <button class="hamburger" id="hamburger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="navLinks">
+            <span></span><span></span><span></span>
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home" data-ar="الرئيسية" data-en="Home">الرئيسية</a></li>
+            <li><a href="#about" data-ar="عني" data-en="About Me">عني</a></li>
+            <li><a href="#skills" data-ar="المهارات" data-en="Skills">المهارات</a></li>
+            <li><a href="#tech-stack" data-ar="الأدوات" data-en="Tech Stack">الأدوات</a></li>
+            <li><a href="#projects" data-ar="مشاريعي" data-en="Projects">مشاريعي</a></li>
+            <li><a href="#blog" data-ar="المقالات" data-en="Articles">المقالات</a></li>
+            <li><a href="#certs" data-ar="الشهادات" data-en="Certificates">الشهادات</a></li>
+            <li><a href="#contact" data-ar="تواصل معي" data-en="Contact">تواصل معي</a></li>
+        </ul>
+
+        <div class="header-actions">
+            <div class="search-box" id="searchBox">
+                <input type="text" id="searchInput" placeholder="بحث..." onkeyup="searchPage()">
+                <button onclick="toggleSearch()" title="بحث"><i class="fas fa-search" id="searchIcon"></i></button>
+            </div>
+            <button class="action-btn" onclick="toggleTheme()" title="تغيير المظهر" aria-label="تغيير المظهر"><i class="fas fa-moon" id="themeIcon"></i></button>
+            <button class="action-btn" onclick="toggleLanguage()" id="langBtn" aria-label="تبديل اللغة">EN</button>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content" data-aos="fade-up">
+            <span class="hero-greeting" data-ar="مرحباً بك في مساحتي الرقمية" data-en="Welcome to my digital space">مرحباً بك في مساحتي الرقمية</span>
+            <h1 data-ar="أنا <span>محمد آل ردفان</span>" data-en="I'm <span>Mohammed Alredfan</span>">أنا <span>محمد آل ردفان</span></h1>
+            <div class="hero-role" data-ar="خريج بكالوريوس الأمن السيبراني" data-en="Cybersecurity Graduate">خريج بكالوريوس الأمن السيبراني</div>
+            <p class="hero-desc" data-ar="أطمح للإسهام في بناء بيئة رقمية آمنة وموثوقة. متخصص في حماية المعلومات، أمن الشبكات، واكتشاف الثغرات." data-en="Aspiring to contribute to a safe and trustworthy digital environment. Specialized in information security, network defense, and vulnerability discovery.">أطمح للإسهام في بناء بيئة رقمية آمنة وموثوقة. متخصص في حماية المعلومات، أمن الشبكات، واكتشاف الثغرات.</p>
+            
+            <a href="#contact" class="hero-btn" data-ar="تواصل معي <i class='fas fa-paper-plane'></i>" data-en="Contact Me <i class='fas fa-paper-plane'></i>">تواصل معي <i class="fas fa-paper-plane"></i></a>
+        </div>
+    </section>
+
+    <section class="section" id="about" style="position: relative; overflow: hidden;">
+        <canvas id="matrix-canvas"></canvas>
+        <h2 class="section-title" data-ar="عني" data-en="About Me">عني</h2>
+        <div class="about-text" data-aos="fade-up">
+            <p data-ar="أنا محمد عبدالرحمن آل ردفان، خريج بكالوريوس الأمن السيبراني، حاصل على معدل ممتاز مع مرتبة الشرف الأولى. أمتلك شغفاً كبيراً بمجال حماية المعلومات وأمن الشبكات، وأسعى دائماً لتطوير مهاراتي العملية من خلال التدريب المستمر وحل التحديات في منصات متخصصة مثل TryHackMe و Hack The Box. أطمح للإسهام في بناء بيئة رقمية آمنة وموثوقة، والالتحاق ببرامج الماجستير لتعميق فهمي الأكاديمي والبحثي في هذا المجال الحيوي." 
+               data-en="I am Mohammed Abdulrahman Alredfan, a Cybersecurity graduate, holding an Excellent grade with First Class Honors. I have a strong passion for information security and network defense, constantly seeking to enhance my practical skills through continuous training and solving challenges on specialized platforms like TryHackMe and Hack The Box. I aspire to contribute to building a safe and trustworthy digital environment and to pursue my Master's degree to deepen my academic and research understanding in this vital field.">
+               أنا محمد عبدالرحمن آل ردفان، خريج بكالوريوس الأمن السيبراني، حاصل على معدل ممتاز مع مرتبة الشرف الأولى. أمتلك شغفاً كبيراً بمجال حماية المعلومات وأمن الشبكات، وأسعى دائماً لتطوير مهاراتي العملية من خلال التدريب المستمر وحل التحديات في منصات متخصصة مثل TryHackMe و Hack The Box. أطمح للإسهام في بناء بيئة رقمية آمنة وموثوقة، والالتحاق ببرامج الماجستير لتعميق فهمي الأكاديمي والبحثي في هذا المجال الحيوي.
+            </p>
+        </div>
+
+        <h2 class="section-title" data-ar="المسيرة الأكاديمية" data-en="Academic Journey">المسيرة الأكاديمية</h2>
+        <div class="timeline" id="timeline">
+            <div class="timeline-item" data-aos="fade-left">
+                <span class="timeline-date" data-ar="2028" data-en="2028">2028</span>
+                <h3 data-ar="الماجستير في الأمن السيبراني" data-en="Master in Cybersecurity">الماجستير في الأمن السيبراني</h3>
+            </div>
+            <div class="timeline-item" data-aos="fade-left" data-aos-delay="100">
+                <span class="timeline-date" data-ar="2026" data-en="2026">2026</span>
+                <h3 data-ar="البكالوريوس في الأمن السيبراني" data-en="Bachelor of Cybersecurity">البكالوريوس في الأمن السيبراني</h3>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="skills">
+        <h2 class="section-title" data-ar="المهارات التقنية" data-en="Technical Skills">المهارات التقنية</h2>
+        <div class="skills-grid">
+            <div class="skill-card" data-aos="zoom-in">
+                <i class="fas fa-network-wired"></i>
+                <h3 data-ar="تحليل الشبكات" data-en="Network Analysis">تحليل الشبكات</h3>
+            </div>
+            <div class="skill-card" data-aos="zoom-in" data-aos-delay="100">
+                <i class="fas fa-bug"></i>
+                <h3 data-ar="اختبار الاختراق" data-en="Penetration Testing">اختبار الاختراق</h3>
+            </div>
+            <div class="skill-card" data-aos="zoom-in" data-aos-delay="200">
+                <i class="fas fa-shield-alt"></i>
+                <h3 data-ar="إدارة المخاطر" data-en="Risk Management">إدارة المخاطر</h3>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="tech-stack">
+        <h2 class="section-title" data-ar="أدوات الأمن السيبراني" data-en="Cybersecurity Tools">أدوات الأمن السيبراني</h2>
+        <div class="tech-stack-grid">
+            <div class="tech-item" data-aos="zoom-in"><i class="fas fa-network-wired"></i> Wireshark</div>
+            <div class="tech-item" data-aos="zoom-in" data-aos-delay="50"><i class="fas fa-spider"></i> Burp Suite</div>
+            <div class="tech-item" data-aos="zoom-in" data-aos-delay="100"><i class="fas fa-crosshairs"></i> Nmap</div>
+            <div class="tech-item" data-aos="zoom-in" data-aos-delay="150"><i class="fas fa-skull-crossbones"></i> Metasploit</div>
+            <div class="tech-item" data-aos="zoom-in" data-aos-delay="200"><i class="fab fa-linux"></i> Kali Linux</div>
+            <div class="tech-item" data-aos="zoom-in" data-aos-delay="250"><i class="fab fa-python"></i> Python</div>
+            <div class="tech-item" data-aos="zoom-in" data-aos-delay="300"><i class="fas fa-chart-line"></i> Splunk</div>
+        </div>
+    </section>
+
+    <section class="section" id="projects">
+        <h2 class="section-title" data-ar="مشاريعي" data-en="My Projects">مشاريعي</h2>
+        <div class="projects-grid">
+            
+            <div class="project-card" data-aos="fade-up">
+                <div class="project-info">
+                    <h3 dir="ltr">Face Crypt Cloud</h3>
+                    <p data-ar="مشروع يعتمد على تقنيات الذكاء الاصطناعي والتعرف على الوجه لتشفير وحماية البيانات السحابية بأعلى معايير الأمان." data-en="An AI and facial recognition-based project for encrypting and securing cloud data with high security standards.">مشروع يعتمد على تقنيات الذكاء الاصطناعي والتعرف على الوجه لتشفير وحماية البيانات السحابية بأعلى معايير الأمان.</p>
+                    <a href="https://github.com/malredfan/Face-Crypt-Cloud.git" target="_blank" class="project-link" data-ar="عرض على GitHub <i class='fab fa-github'></i>" data-en="View on GitHub <i class='fab fa-github'></i>">عرض على GitHub <i class="fab fa-github"></i></a>
+                </div>
+            </div>
+
+            <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="project-info">
+                    <h3 dir="ltr">BrainSec</h3>
+                    <p data-ar="لعبة تفاعلية تهدف إلى نشر الوعي وتثقيف المستخدمين في مجال الأمن السيبراني بأسلوب شيق وممتع." data-en="An interactive game designed to raise awareness and educate users in cybersecurity in an engaging way.">لعبة تفاعلية تهدف إلى نشر الوعي وتثقيف المستخدمين في مجال الأمن السيبراني بأسلوب شيق وممتع.</p>
+                    <a href="https://brainsec-ozp7.onrender.com/" target="_blank" class="project-link" data-ar="زيارة المشروع <i class='fas fa-external-link-alt'></i>" data-en="Visit Project <i class='fas fa-external-link-alt'></i>">زيارة المشروع <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+
+            <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="project-info">
+                    <h3 dir="ltr">Penetration Test - Metasploitable 2</h3>
+                    <p data-ar="اختبار اختراق لجهاز Metasploitable 2 واستغلال ثغرة Samba 3.0.20 (CVE-2007-2447) لتنفيذ أوامر عن بُعد." data-en="Penetration test for Metasploitable 2 exploiting the Samba 3.0.20 Username Map Script vulnerability (CVE-2007-2447) for remote command execution.">اختبار اختراق لجهاز Metasploitable 2 واستغلال ثغرة Samba 3.0.20 (CVE-2007-2447) لتنفيذ أوامر عن بُعد.</p>
+                    <a href="https://github.com/malredfan/metasploitable2-pentest.git" target="_blank" class="project-link" data-ar="عرض على GitHub <i class='fab fa-github'></i>" data-en="View on GitHub <i class='fab fa-github'></i>">عرض على GitHub <i class="fab fa-github"></i></a>
+                </div>
+            </div>
+
+            <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="project-info">
+                    <h3 dir="ltr">Password Manager with Encryption</h3>
+                    <p data-ar="تطبيق سطح مكتب آمن بلغة Python لتخزين بيانات الاعتماد في خزنة محلية مشفرة. يستخدم تجزئة bcrypt لكلمة المرور الرئيسية وتشفير AES لكلمات المرور المخزنة، مع قاعدة بيانات SQLite وواجهة رسومية حديثة." data-en="A secure Python desktop app storing credentials in an encrypted local vault. Uses bcrypt for master password hashing and AES for stored passwords, with SQLite storage and a modern GUI.">تطبيق سطح مكتب آمن بلغة Python لتخزين بيانات الاعتماد في خزنة محلية مشفرة. يستخدم تجزئة bcrypt لكلمة المرور الرئيسية وتشفير AES لكلمات المرور المخزنة، مع قاعدة بيانات SQLite وواجهة رسومية حديثة.</p>
+                    <a href="https://github.com/malredfan/Password-Manager-with-Encryption.git" target="_blank" class="project-link" data-ar="عرض على GitHub <i class='fab fa-github'></i>" data-en="View on GitHub <i class='fab fa-github'></i>">عرض على GitHub <i class="fab fa-github"></i></a>
+                </div>
+            </div>
+
+            <div class="project-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="project-info">
+                    <h3 dir="ltr">Array Based Stack Data Structures</h3>
+                    <p data-ar="مشروع يطبق هيكل البيانات Stack باستخدام المصفوفات، ويغطي العمليات الأساسية (Push, Pop, Peek, Display) وتطبيقات عملية مثل عكس الكلمات، فحص التناظر، وموازنة الأقواس." data-en="Project implementing an Array-Based Stack. Covers core operations (Push, Pop, Peek, Display) and practical apps like word reversal, palindrome checking, and braces balancing.">مشروع يطبق هيكل البيانات Stack باستخدام المصفوفات، ويغطي العمليات الأساسية (Push, Pop, Peek, Display) وتطبيقات عملية مثل عكس الكلمات، فحص التناظر، وموازنة الأقواس.</p>
+                    <a href="https://github.com/malredfan/Array-Based-Stack-Data-Structures.git" target="_blank" class="project-link" data-ar="عرض على GitHub <i class='fab fa-github'></i>" data-en="View on GitHub <i class='fab fa-github'></i>">عرض على GitHub <i class="fab fa-github"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section" id="blog">
+        <h2 class="section-title" data-ar="المقالات" data-en="Articles">المقالات</h2>
+        <div class="blog-grid">
+            
+            <div class="blog-card" data-aos="fade-up">
+                <div class="blog-content">
+                    <h3 data-ar="أهمية تفعيل المصادقة الثنائية (2FA)" data-en="The Importance of Enabling Two-Factor Authentication (2FA)">أهمية تفعيل المصادقة الثنائية (2FA)</h3>
+                    <p data-ar="شرح مبسط لكيفية حماية حساباتك الشخصية والمهنية من الاختراق باستخدام طبقة حماية إضافية." data-en="A simplified explanation of how to protect your accounts using an extra layer of security.">شرح مبسط لكيفية حماية حساباتك الشخصية والمهنية من الاختراق باستخدام طبقة حماية إضافية.</p>
+                    <button class="blog-link" onclick="openArticle(0)" data-ar="اقرأ المزيد <i class='fas fa-arrow-left'></i>" data-en="Read More <i class='fas fa-arrow-right'></i>">اقرأ المزيد <i class="fas fa-arrow-left"></i></button>
+                </div>
+            </div>
+
+            <div class="blog-card" data-aos="fade-up" data-aos-delay="50">
+                <div class="blog-content">
+                    <h3 data-ar="كيف تتعرف على رسائل التصيد الاحتيالي؟" data-en="How to Recognize Phishing Emails?">كيف تتعرف على رسائل التصيد الاحتيالي؟</h3>
+                    <p data-ar="دليل عملي لأهم العلامات التي تدل على أنك تتلقى رسالة تصيد احتيالي وكيفية التعامل معها." data-en="A practical guide to the key signs of a phishing email and how to handle it.">دليل عملي لأهم العلامات التي تدل على أنك تتلقى رسالة تصيد احتيالي وكيفية التعامل معها.</p>
+                    <button class="blog-link" onclick="openArticle(1)" data-ar="اقرأ المزيد <i class='fas fa-arrow-left'></i>" data-en="Read More <i class='fas fa-arrow-right'></i>">اقرأ المزيد <i class="fas fa-arrow-left"></i></button>
+                </div>
+            </div>
+
+            <div class="blog-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="blog-content">
+                    <h3 data-ar="لماذا تعتبر تحديثات النظام أمراً حاسماً؟" data-en="Why are System Updates Crucial?">لماذا تعتبر تحديثات النظام أمراً حاسماً؟</h3>
+                    <p data-ar="التحديثات ليست مجرد ميزات جديدة، بل هي درع الحماية الأول ضد الثغرات المكتشفة حديثاً." data-en="Updates are not just new features, they are the first line of defense against newly discovered vulnerabilities.">التحديثات ليست مجرد ميزات جديدة، بل هي درع الحماية الأول ضد الثغرات المكتشفة حديثاً.</p>
+                    <button class="blog-link" onclick="openArticle(2)" data-ar="اقرأ المزيد <i class='fas fa-arrow-left'></i>" data-en="Read More <i class='fas fa-arrow-right'></i>">اقرأ المزيد <i class="fas fa-arrow-left"></i></button>
+                </div>
+            </div>
+
+            <div class="blog-card" data-aos="fade-up" data-aos-delay="150">
+                <div class="blog-content">
+                    <h3 data-ar="كيف تصنع كلمة مرور قوية لا تُخترق؟" data-en="How to Create an Unbreakable Password?">كيف تصنع كلمة مرور قوية لا تُخترق؟</h3>
+                    <p data-ar="تجنب استخدام كلمات المرور الشائعة، وتعرف على أفضل الممارسات لإنشاء وإدارة كلمات المرور." data-en="Avoid common passwords and learn the best practices for creating and managing passwords.">تجنب استخدام كلمات المرور الشائعة، وتعرف على أفضل الممارسات لإنشاء وإدارة كلمات المرور.</p>
+                    <button class="blog-link" onclick="openArticle(3)" data-ar="اقرأ المزيد <i class='fas fa-arrow-left'></i>" data-en="Read More <i class='fas fa-arrow-right'></i>">اقرأ المزيد <i class="fas fa-arrow-left"></i></button>
+                </div>
+            </div>
+
+            <div class="blog-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="blog-content">
+                    <h3 data-ar="مخاطر استخدام شبكات الواي فاي العامة" data-en="Dangers of Using Public Wi-Fi">مخاطر استخدام شبكات الواي فاي العامة</h3>
+                    <p data-ar="لماذا يجب عليك التفكير مرتين قبل الاتصال بشبكة واي فاي مفتوحة في المقهى أو المطار؟" data-en="Why should you think twice before connecting to an open Wi-Fi network at a cafe or airport?">لماذا يجب عليك التفكير مرتين قبل الاتصال بشبكة واي فاي مفتوحة في المقهى أو المطار؟</p>
+                    <button class="blog-link" onclick="openArticle(4)" data-ar="اقرأ المزيد <i class='fas fa-arrow-left'></i>" data-en="Read More <i class='fas fa-arrow-right'></i>">اقرأ المزيد <i class="fas fa-arrow-left"></i></button>
+                </div>
+            </div>
+
+            <div class="blog-card" data-aos="fade-up" data-aos-delay="250">
+                <div class="blog-content">
+                    <h3 data-ar="فهم الهندسة الاجتماعية (Social Engineering)" data-en="Understanding Social Engineering">فهم الهندسة الاجتماعية (Social Engineering)</h3>
+                    <p data-ar="كيف يمكن للهاكرز التلاعب بعقول البشر بدلاً من اختراق الأنظمة التقنية؟" data-en="How can hackers manipulate human minds instead of hacking technical systems?">كيف يمكن للهاكرز التلاعب بعقول البشر بدلاً من اختراق الأنظمة التقنية؟</p>
+                    <button class="blog-link" onclick="openArticle(5)" data-ar="اقرأ المزيد <i class='fas fa-arrow-left'></i>" data-en="Read More <i class='fas fa-arrow-right'></i>">اقرأ المزيد <i class="fas fa-arrow-left"></i></button>
+                </div>
+            </div>
+
+            <div class="blog-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="blog-content">
+                    <h3 data-ar="قاعدة النسخ الاحتياطي 3-2-1" data-en="The 3-2-1 Backup Rule">قاعدة النسخ الاحتياطي 3-2-1</h3>
+                    <p data-ar="استراتيجية بسيطة وفعالة لضمان عدم فقدان بياناتك الثمينة في حالة حدوث هجوم فدية أو عطل." data-en="A simple and effective strategy to ensure your valuable data is not lost in case of ransomware or failure.">استراتيجية بسيطة وفعالة لضمان عدم فقدان بياناتك الثمينة في حالة حدوث هجوم فدية أو عطل.</p>
+                    <button class="blog-link" onclick="openArticle(6)" data-ar="اقرأ المزيد <i class='fas fa-arrow-left'></i>" data-en="Read More <i class='fas fa-arrow-right'></i>">اقرأ المزيد <i class="fas fa-arrow-left"></i></button>
+                </div>
+            </div>
+
+            <div class="blog-card" data-aos="fade-up" data-aos-delay="350">
+                <div class="blog-content">
+                    <h3 data-ar="كيف تدافع عن نفسك ضد برامج الفدية (Ransomware)؟" data-en="How to Defend Against Ransomware?">كيف تدافع عن نفسك ضد برامج الفدية (Ransomware)؟</h3>
+                    <p data-ar="خطوات عملية لحماية أجهزتك وملفاتك من أخطر التهديدات السيبرانية التي تشل المؤسسات." data-en="Practical steps to protect your devices and files from one of the most crippling cyber threats.">خطوات عملية لحماية أجهزتك وملفاتك من أخطر التهديدات السيبرانية التي تشل المؤسسات.</p>
+                    <button class="blog-link" onclick="openArticle(7)" data-ar="اقرأ المزيد <i class='fas fa-arrow-left'></i>" data-en="Read More <i class='fas fa-arrow-right'></i>">اقرأ المزيد <i class="fas fa-arrow-left"></i></button>
+                </div>
+            </div>
+
+            <div class="blog-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="blog-content">
+                    <h3 data-ar="أمن إنترنت الأشياء (IoT Security)" data-en="IoT Security">أمن إنترنت الأشياء (IoT Security)</h3>
+                    <p data-ar="كيف تحمي كاميرات المراقبة والأجهزة المنزلية الذكية من الاختراق وسرقة الخصوصية؟" data-en="How to protect smart home devices and cameras from being hacked and privacy theft?">كيف تحمي كاميرات المراقبة والأجهزة المنزلية الذكية من الاختراق وسرقة الخصوصية؟</p>
+                    <button class="blog-link" onclick="openArticle(8)" data-ar="اقرأ المزيد <i class='fas fa-arrow-left'></i>" data-en="Read More <i class='fas fa-arrow-right'></i>">اقرأ المزيد <i class="fas fa-arrow-left"></i></button>
+                </div>
+            </div>
+
+            <div class="blog-card" data-aos="fade-up" data-aos-delay="450">
+                <div class="blog-content">
+                    <h3 data-ar="أساسيات التشفير (Encryption) للمستخدم العادي" data-en="Encryption Basics for Everyday Use">أساسيات التشفير (Encryption) للمستخدم العادي</h3>
+                    <p data-ar="ما هو التشفير وكيف يحمي بياناتك في رحلاتك اليومية على الإنترنت؟" data-en="What is encryption and how does it protect your data in your daily internet journeys?">ما هو التشفير وكيف يحمي بياناتك في رحلاتك اليومية على الإنترنت؟</p>
+                    <button class="blog-link" onclick="openArticle(9)" data-ar="اقرأ المزيد <i class='fas fa-arrow-left'></i>" data-en="Read More <i class='fas fa-arrow-right'></i>">اقرأ المزيد <i class="fas fa-arrow-left"></i></button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section" id="certs">
+        <h2 class="section-title" data-ar="الشهادات" data-en="Certificates">الشهادات</h2>
+        <div class="certs-grid">
+            
+            <div class="cert-card" data-aos="fade-up">
+                <i class="fas fa-certificate"></i>
+                <h3 dir="ltr">CompTIA Security+</h3>
+                <div class="cert-company" data-ar="شركة CompTIA" data-en="CompTIA">شركة CompTIA</div>
+            </div>
+
+            <div class="cert-card" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-user-secret"></i>
+                <h3 dir="ltr">eJPT</h3>
+                <div class="cert-company" data-ar="شركة INE Security" data-en="INE Security">شركة INE Security</div>
+            </div>
+
+            <div class="cert-card" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-shield-virus"></i>
+                <h3 dir="ltr">ISC2 CC</h3>
+                <div class="cert-company" data-ar="شركة ISC2" data-en="ISC2">شركة ISC2</div>
+            </div>
+
+            <div class="cert-card" data-aos="fade-up" data-aos-delay="300">
+                <i class="fas fa-brain"></i>
+                <h3 dir="ltr">Deep learning (Pytorch)</h3>
+                <div class="cert-company" data-ar="أكاديمية طويق" data-en="Tuwaiq Academy">أكاديمية طويق</div>
+            </div>
+
+            <div class="cert-card" data-aos="fade-up" data-aos-delay="400">
+                <i class="fas fa-shield-alt"></i>
+                <h3 dir="ltr">Introduction to Cybersecurity</h3>
+                <div class="cert-company" data-ar="أكاديمية سيسكو" data-en="Cisco Academy">أكاديمية سيسكو</div>
+            </div>
+
+            <div class="cert-card" data-aos="fade-up" data-aos-delay="500">
+                <i class="fas fa-globe"></i>
+                <h3 dir="ltr">Introduction to Networks</h3>
+                <div class="cert-company" data-ar="منصة إدراك" data-en="Edraak">منصة إدراك</div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section" id="contact">
+        <h2 class="section-title" data-ar="تواصل معي" data-en="Contact Me">تواصل معي</h2>
+        <div class="contact-form" data-aos="fade-up">
+            <form id="contactForm" novalidate>
+                <div class="form-group">
+                    <input type="text" id="cf-name" name="name" placeholder="الاسم الكامل" data-ar-ph="الاسم الكامل" data-en-ph="Full Name" required minlength="2" maxlength="100">
+                    <span class="field-error" data-ar="الرجاء إدخال الاسم (حرفان على الأقل)" data-en="Please enter your name (at least 2 characters)"></span>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="cf-email" name="email" placeholder="البريد الإلكتروني" data-ar-ph="البريد الإلكتروني" data-en-ph="Email Address" required maxlength="150">
+                    <span class="field-error" data-ar="الرجاء إدخال بريد إلكتروني صحيح" data-en="Please enter a valid email address"></span>
+                </div>
+                <div class="form-group">
+                    <textarea id="cf-message" name="message" rows="5" placeholder="رسالتك..." data-ar-ph="رسالتك..." data-en-ph="Your Message..." required minlength="10" maxlength="2000"></textarea>
+                    <span class="field-error" data-ar="الرسالة قصيرة جداً (10 أحرف على الأقل)" data-en="Message is too short (at least 10 characters)"></span>
+                </div>
+                
+                <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;" aria-hidden="true">
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span class="btn-text" data-ar="إرسال الرسالة" data-en="Send Message">إرسال الرسالة</span>
+                    <i class="fas fa-spinner fa-spin btn-loading" style="display:none;"></i>
+                </button>
+                
+                <div id="formStatus" class="form-status" role="status" aria-live="polite"></div>
+            </form>
+        </div>
+    </section>
+
+    <!-- زر العودة للأعلى (نصي - عربي/إنجليزي) -->
+    <button id="backToTop" type="button" aria-label="العودة للأعلى" title="العودة للأعلى"
+            data-ar='<i class="fas fa-arrow-up"></i> العودة للأعلى'
+            data-en='<i class="fas fa-arrow-up"></i> Back to Top'>
+        <i class="fas fa-arrow-up"></i> العودة للأعلى
+    </button>
+
+    <!-- الفوتر الاحترافي -->
+    <footer class="site-footer" id="footer">
+        <div class="footer-main">
+            <div class="footer-container">
+
+                <!-- العمود الأول: نبذة -->
+                <div class="footer-brand-col">
+                    <p class="footer-tagline" data-ar="خريج بكالوريوس الأمن السيبراني، شغوف بحماية المعلومات وأمن الشبكات، وأسعى دائماً للإسهام في بناء بيئة رقمية آمنة وموثوقة." data-en="Cybersecurity graduate, passionate about information security and network defense, aspiring to contribute to a safe and trustworthy digital environment.">خريج بكالوريوس الأمن السيبراني، شغوف بحماية المعلومات وأمن الشبكات، وأسعى دائماً للإسهام في بناء بيئة رقمية آمنة وموثوقة.</p>
+                    <div class="footer-socials">
+                        <a href="https://www.linkedin.com/in/malredfan" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn" title="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com/malredfan" target="_blank" rel="noopener" class="social-link" aria-label="GitHub" title="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://x.com/malredfan" target="_blank" rel="noopener" class="social-link" aria-label="X" title="X (Twitter)">
+                            <i class="fab fa-x-twitter"></i>
+                        </a>
+                        <a href="https://www.snapchat.com/add/malredfan" target="_blank" rel="noopener" class="social-link" aria-label="Snapchat" title="Snapchat">
+                            <i class="fab fa-snapchat-ghost"></i>
+                        </a>
+                        <a href="https://www.instagram.com/malredfan" target="_blank" rel="noopener" class="social-link" aria-label="Instagram" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- العمود الثاني: روابط سريعة -->
+                <div class="footer-col">
+                    <h4 data-ar="روابط سريعة" data-en="Quick Links">روابط سريعة</h4>
+                    <ul>
+                        <li><a href="#home" data-ar="الرئيسية" data-en="Home">الرئيسية</a></li>
+                        <li><a href="#about" data-ar="نبذة عني" data-en="About Me">نبذة عني</a></li>
+                        <li><a href="#projects" data-ar="المشاريع" data-en="Projects">المشاريع</a></li>
+                        <li><a href="#blog" data-ar="المقالات" data-en="Articles">المقالات</a></li>
+                    </ul>
+                </div>
+
+                <!-- العمود الثالث: الأقسام -->
+                <div class="footer-col">
+                    <h4 data-ar="الأقسام" data-en="Sections">الأقسام</h4>
+                    <ul>
+                        <li><a href="#skills" data-ar="المهارات" data-en="Skills">المهارات</a></li>
+                        <li><a href="#tech-stack" data-ar="الأدوات" data-en="Tech Stack">الأدوات</a></li>
+                        <li><a href="#certs" data-ar="الشهادات" data-en="Certificates">الشهادات</a></li>
+                        <li><a href="#contact" data-ar="تواصل معي" data-en="Contact">تواصل معي</a></li>
+                    </ul>
+                </div>
+
+                <!-- العمود الرابع: معلومات التواصل -->
+                <div class="footer-col">
+                    <h4 data-ar="معلومات التواصل" data-en="Contact Information">معلومات التواصل</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span data-ar="المملكة العربية السعودية" data-en="Saudi Arabia">المملكة العربية السعودية</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:malredfan@gmail.com">malredfan@gmail.com</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-briefcase"></i>
+                            <span data-ar="متاح للفرص والتدريب" data-en="Open to opportunities">متاح للفرص والتدريب</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- الشريط السفلي -->
+        <div class="footer-bottom">
+            <div class="footer-bottom-container">
+                <p class="copyright" data-ar="© 2024 محمد عبدالرحمن آل ردفان. جميع الحقوق محفوظة." data-en="© 2024 Mohammed Abdulrahman Alredfan. All rights reserved.">© 2024 محمد عبدالرحمن آل ردفان. جميع الحقوق محفوظة.</p>
+                <div class="footer-legal">
+                    <a href="#about" data-ar="سياسة الخصوصية" data-en="Privacy Policy">سياسة الخصوصية</a>
+                    <span>·</span>
+                    <a href="#about" data-ar="شروط الاستخدام" data-en="Terms of Use">شروط الاستخدام</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal-overlay" id="articleModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeArticle()"><i class="fas fa-times"></i></button>
+            <h2 id="modalTitle">عنوان المقال</h2>
+            <div class="article-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // =========================================
+        // 1. تهيئة التفضيلات من LocalStorage
+        // =========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                const themeIcon = document.getElementById('themeIcon');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+
+            const savedLang = localStorage.getItem('lang');
+            if (savedLang === 'en') {
+                toggleLanguage(true);
+            }
+        });
+
+        AOS.init({ duration: 800, once: true, offset: 100 });
+
+        const articles = [
+            {
+                titleAr: "أهمية تفعيل المصادقة الثنائية (2FA)",
+                titleEn: "The Importance of Enabling Two-Factor Authentication (2FA)",
+                contentAr: `
+                    <p>في عصرنا الرقمي الحالي، أصبحت كلمات المرور وحدها غير كافية لحماية حساباتنا. تخيل أنك تبني قلعة ولها باب واحد فقط؛ إذا تمكن اللص من الحصول على مفتاح هذا الباب، فسيتمكن من الدخول بسهولة. هذا هو حال كلمة المرور، إذا تم تسريبها أو سرقتها (وهو أمر يحدث كثيراً بسبب التصيد أو تسريب قواعد البيانات)، فسيتم اختراق حسابك.</p>
+                    <p>هنا يأتي دور <strong>المصادقة الثنائية (2FA)</strong>، والتي تضيف طبقة ثانية من الأمان. بدلاً من مجرد إدخال كلمة المرور، سيُطلب منك إدخال رمز إضافي يتم إنشاؤه خصيصاً لك. حتى لو كان المهاجم يملك كلمة المرور الخاصة بك، فلن يتمكن من الدخول لأن الرمز الثاني موجود فقط على جهازك.</p>
+                    <h3>أنواع المصادقة الثنائية:</h3>
+                    <ul>
+                        <li><strong>رسائل SMS:</strong> يرسل لك النظام رمزاً عبر رسالة نصية. (مفيد لكنه عرضة لهجمات تبديل الشرائح SIM Swapping).</li>
+                        <li><strong>تطبيقات المصادقة (Authenticator Apps):</strong> مثل Google Authenticator أو Authy. هذه هي الطريقة الأكثر أماناً وموصى بها، حيث تعمل بدون الحاجة لاتصال بالإنترنت.</li>
+                        <li><strong>المفاتيح المادية (Hardware Tokens):</strong> مثل أجهزة YubiKey. تعتبر الخيار الأقوى على الإطلاق، حيث تتطلب توصيل جهاز فيزيائي بالكمبيوتر لتأكيد الدخول.</li>
+                    </ul>
+                    <p>نصيحة أخيرة: ابدأ بتفعيل المصادقة الثنائية على حساباتك الأكثر أهمية، مثل بريدك الإلكتروني الرئيسي (لأنه مفتاح استعادة جميع الحسابات الأخرى)، وحساباتك البنكية، وحسابات التواصل الاجتماعي.</p>
+                `,
+                contentEn: `
+                    <p>In our current digital age, passwords alone are no longer sufficient to protect our accounts.</p>
+                    <p>This is where <strong>Two-Factor Authentication (2FA)</strong> comes into play, adding a second layer of security. Even if the attacker has your password, they won't be able to access your account.</p>
+                    <h3>Types of 2FA:</h3>
+                    <ul>
+                        <li><strong>SMS Messages:</strong> Useful but vulnerable to SIM Swapping attacks.</li>
+                        <li><strong>Authenticator Apps:</strong> Most secure and recommended method.</li>
+                        <li><strong>Hardware Tokens:</strong> Like YubiKeys. The absolute strongest option.</li>
+                    </ul>
+                    <p>Last tip: Start by enabling 2FA on your most critical accounts.</p>
+                `
+            },
+            {
+                titleAr: "كيف تتعرف على رسائل التصيد الاحتيالي؟",
+                titleEn: "How to Recognize Phishing Emails?",
+                contentAr: `
+                    <p>الهندسة الاجتماعية والتصيد الاحتيالي (Phishing) هما السبب الأول لاختراق المؤسسات والأفراد. لا يحتاج الهاكر إلى مهارات برمجية معقدة إذا كان بإمكانه فقط إقناعك بتسليم كلمة المرور الخاصة بك بمحض إرادتك!</p>
+                    <p>رسائل التصيد الاحتيالي مصممة باحترافية لتبدو حقيقية. قد تتلقى بريداً إلكترونياً يبدو وكأنه قادم من البنك الخاص بك، أو شركة الشحن، أو حتى مديرك في العمل. لكن هناك بعض العلامات التي تفضح هذه المحاولات إذا كنت يقظاً.</p>
+                    <h3>علامات تحذيرية يجب الانتباه إليها:</h3>
+                    <ul>
+                        <li><strong>الشعور بالإلحاح أو التهديد:</strong> مثل "حسابك سيُغلق خلال 24 ساعة".</li>
+                        <li><strong>عنوان المرسل الغريب:</strong> تحقق دائماً من البريد الإلكتروني للمرسل.</li>
+                        <li><strong>الأخطاء الإملائية والنحوية:</strong> المؤسسات الكبرى تدقق في رسائلها.</li>
+                        <li><strong>روابط ومرفقات مشبوهة:</strong> لا تنقر أبداً على رابط قبل تمرير الماوس فوقه.</li>
+                    </ul>
+                    <p>إذا شككت في أي رسالة، لا ترد عليها، ولا تضغط على روابطها. اتصل بالجهة المرسلة عبر رقم هاتف رسمي تعرفه أنت للتحقق.</p>
+                `,
+                contentEn: `
+                    <p>Social engineering and phishing are the number one cause of breaches.</p>
+                    <h3>Red Flags to Watch Out For:</h3>
+                    <ul>
+                        <li><strong>A Sense of Urgency or Threat</strong></li>
+                        <li><strong>Strange Sender Address</strong></li>
+                        <li><strong>Spelling and Grammar Errors</strong></li>
+                        <li><strong>Suspicious Links and Attachments</strong></li>
+                    </ul>
+                    <p>If you are suspicious of any message, do not reply to it and do not click its links.</p>
+                `
+            },
+            {
+                titleAr: "لماذا تعتبر تحديثات النظام أمراً حاسماً؟",
+                titleEn: "Why are System Updates Crucial?",
+                contentAr: `
+                    <p>الجميع يكره رؤية إشعار "التحديث متاح الآن" في أسوأ وقت ممكن. لذلك، يقوم الكثيرون بتأجيل التحديثات لأسابيع أو أشهر. ولكن في عالم الأمن السيبراني، هذا يعادل ترك باب منزلك مفتوحاً على مصراعيه.</p>
+                    <p>إذا لم تقم أنت بتحديث جهازك، فأنت معرض للهجوم الذي تستهدفه هذه الثغرة. هجوم فدية <strong>WannaCry</strong> الشهير في 2017 أصاب أكثر من 200,000 جهاز في 150 دولة!</p>
+                    <h3>ماذا يجب أن تفعل؟</h3>
+                    <ul>
+                        <li><strong>فعّل التحديثات التلقائية:</strong> اجعل أجهزتك تقوم بالتحديث تلقائياً.</li>
+                        <li><strong>لا تتجاهل المتصفح:</strong> تحديثات المتصفح ليست مجرد تغييرات في الشكل.</li>
+                        <li><strong>قاعدة "النسخ الاحتياطي":</strong> تأكد من وجود نسخة احتياطية قبل التحديث.</li>
+                    </ul>
+                `,
+                contentEn: `
+                    <p>Everyone hates seeing the "Update available now" notification. But in cybersecurity, postponing updates is equivalent to leaving your front door wide open.</p>
+                    <p>The infamous <strong>WannaCry</strong> attack in 2017 infected over 200,000 computers in 150 countries!</p>
+                    <h3>What should you do?</h3>
+                    <ul>
+                        <li><strong>Enable Automatic Updates</strong></li>
+                        <li><strong>Don't Ignore Your Browser</strong></li>
+                        <li><strong>Backup Rule</strong></li>
+                    </ul>
+                `
+            },
+            {
+                titleAr: "كيف تصنع كلمة مرور قوية لا تُخترق؟",
+                titleEn: "How to Create an Unbreakable Password?",
+                contentAr: `
+                    <p>في كل عام، تتصدر كلمات المرور الضعيفة مثل "123456" و "password" قائمة أكثر كلمات المرور شيوعاً. استخدام هذه الكلمات يعتبر انتحاراً رقمياً.</p>
+                    <h3>أفضل الممارسات لإنشاء كلمة مرور قوية:</h3>
+                    <ul>
+                        <li><strong>الطول أولاً:</strong> كلمة مرور من 16 حرفاً أفضل بكثير من كلمة من 8 حروف.</li>
+                        <li><strong>استخدم "عبارة مرور" (Passphrase):</strong> جملة من 4 إلى 5 كلمات غير مترابطة.</li>
+                        <li><strong>لا تعيد استخدام كلمات المرور:</strong> استخدم كلمة مرور مختلفة لكل حساب.</li>
+                        <li><strong>استخدم مدير كلمات المرور (Password Manager):</strong> مثل Bitwarden أو 1Password.</li>
+                    </ul>
+                `,
+                contentEn: `
+                    <p>Every year, weak passwords like "123456" and "password" top the list of most common passwords.</p>
+                    <h3>Best Practices:</h3>
+                    <ul>
+                        <li><strong>Length First</strong></li>
+                        <li><strong>Use a Passphrase</strong></li>
+                        <li><strong>Never Reuse Passwords</strong></li>
+                        <li><strong>Use a Password Manager</strong></li>
+                    </ul>
+                `
+            },
+            {
+                titleAr: "مخاطر استخدام شبكات الواي فاي العامة",
+                titleEn: "Dangers of Using Public Wi-Fi",
+                contentAr: `
+                    <p>شبكات الواي فاي العامة متوفرة في كل مكان. إنها نعمة لتوفير بيانات الهاتف، ولكنها في نفس الوقت جنة للقراصنة.</p>
+                    <h3>ما هي الهجمات الشائعة على شبكات الواي فاي العامة؟</h3>
+                    <ul>
+                        <li><strong>هجمات الرجل في المنتصف (MitM)</strong></li>
+                        <li><strong>شبكات التوأم الشرير (Evil Twin)</strong></li>
+                        <li><strong>التجسس على الحزم (Packet Sniffing)</strong></li>
+                    </ul>
+                    <h3>كيف تحمي نفسك؟</h3>
+                    <ul>
+                        <li><strong>استخدم شبكة افتراضية خاصة (VPN)</strong></li>
+                        <li><strong>تأكد من المواقع التي تزورها (HTTPS)</strong></li>
+                        <li><strong>أوقف المشاركة (File Sharing)</strong></li>
+                        <li><strong>تجنب المعاملات الحساسة</strong></li>
+                    </ul>
+                `,
+                contentEn: `
+                    <p>Public Wi-Fi networks are everywhere. It's a blessing for saving mobile data, but also a playground for hackers.</p>
+                    <h3>Common attacks:</h3>
+                    <ul>
+                        <li><strong>Man-in-the-Middle (MitM) Attacks</strong></li>
+                        <li><strong>Evil Twin Networks</strong></li>
+                        <li><strong>Packet Sniffing</strong></li>
+                    </ul>
+                    <h3>How to protect yourself?</h3>
+                    <ul>
+                        <li><strong>Use a VPN</strong></li>
+                        <li><strong>Verify HTTPS</strong></li>
+                        <li><strong>Disable File Sharing</strong></li>
+                        <li><strong>Avoid Sensitive Transactions</strong></li>
+                    </ul>
+                `
+            },
+            {
+                titleAr: "فهم الهندسة الاجتماعية (Social Engineering)",
+                titleEn: "Understanding Social Engineering",
+                contentAr: `
+                    <p>غالباً ما نتخيل الهاكر كشخص يجلس في غرفة مظلمة، يرتدي قبعة سوداء، ويكتب أكواداً معقدة. بينما في الواقع، قد يكون الاختراق أسهل بكثير: مجرد مكالمة هاتفية مقنعة.</p>
+                    <p>هذا هو ما يسمى بـ <strong>الهندسة الاجتماعية</strong>، وهي فن التلاعب النفسي بالبشر.</p>
+                    <h3>أشهر أساليب الهندسة الاجتماعية:</h3>
+                    <ul>
+                        <li><strong>الانتحال (Pretexting)</strong></li>
+                        <li><strong>الطعم (Baiting)</strong></li>
+                        <li><strong>الذيل (Tailgating)</strong></li>
+                    </ul>
+                    <h3>كيف تحمي نفسك؟</h3>
+                    <ul>
+                        <li><strong>الشك الدائم</strong></li>
+                        <li><strong>التحقق المزدوج</strong></li>
+                        <li><strong>التدريب والتوعية</strong></li>
+                    </ul>
+                `,
+                contentEn: `
+                    <p>We often imagine a hacker in a dark room. In reality, the breach could be much simpler: just a convincing phone call.</p>
+                    <p>This is called <strong>Social Engineering</strong>, the art of psychological manipulation.</p>
+                    <h3>Tactics:</h3>
+                    <ul>
+                        <li><strong>Pretexting</strong></li>
+                        <li><strong>Baiting</strong></li>
+                        <li><strong>Tailgating</strong></li>
+                    </ul>
+                    <h3>How to protect yourself?</h3>
+                    <ul>
+                        <li><strong>Constant Skepticism</strong></li>
+                        <li><strong>Double Verification</strong></li>
+                        <li><strong>Training and Awareness</strong></li>
+                    </ul>
+                `
+            },
+            {
+                titleAr: "قاعدة النسخ الاحتياطي 3-2-1",
+                titleEn: "The 3-2-1 Backup Rule",
+                contentAr: `
+                    <p>إذا كان هناك قانون واحد يجب أن يتبعه كل مستخدم للإنترنت، فهو قاعدة 3-2-1 للنسخ الاحتياطي. لأن الوسائل التقنية تفشل دائماً.</p>
+                    <h3>ماذا تعني قاعدة 3-2-1؟</h3>
+                    <ul>
+                        <li><strong>3 نسخ من بياناتك</strong></li>
+                        <li><strong>على وسائط تخزين 2 مختلفين</strong></li>
+                        <li><strong>نسخة 1 خارج الموقع (Offsite)</strong></li>
+                    </ul>
+                    <h3>أهم نصيحة:</h3>
+                    <p>تأكد من أن إحدى نسخك الاحتياطية <strong>غير متصلة بالإنترنت (Offline)</strong>.</p>
+                `,
+                contentEn: `
+                    <p>If there is one law every internet user should follow, it's the 3-2-1 backup rule.</p>
+                    <h3>What does it mean?</h3>
+                    <ul>
+                        <li><strong>3 copies of your data</strong></li>
+                        <li><strong>On 2 different storage media</strong></li>
+                        <li><strong>1 copy offsite</strong></li>
+                    </ul>
+                    <h3>Most Important Tip:</h3>
+                    <p>Make sure one of your backups is <strong>Offline</strong>.</p>
+                `
+            },
+            {
+                titleAr: "كيف تدافع عن نفسك ضد برامج الفدية (Ransomware)؟",
+                titleEn: "How to Defend Against Ransomware?",
+                contentAr: `
+                    <p>برامج الفدية (Ransomware) هي الكابوس الذي يطارد المؤسسات والأفراد على حد سواء. هي نوع من البرمجيات الخبيثة التي تخترق جهازك، وتقوم بتشفير جميع ملفاتك.</p>
+                    <h3>كيف يتم اختراقك؟</h3>
+                    <ul>
+                        <li><strong>التصيد الاحتيالي</strong></li>
+                        <li><strong>الثغرات غير المحدثة</strong></li>
+                        <li><strong>بروتوكول سطح المكتب البعيد (RDP)</strong></li>
+                    </ul>
+                    <h3>كيف تحمي نفسك؟</h3>
+                    <ul>
+                        <li><strong>النسخ الاحتياطي غير المتصل (Offline Backups)</strong></li>
+                        <li><strong>تحديث الأنظمة والبرامج باستمرار</strong></li>
+                        <li><strong>الحذر من المرفقات والروابط</strong></li>
+                        <li><strong>استخدام حلول حماية متقدمة (EDR)</strong></li>
+                    </ul>
+                `,
+                contentEn: `
+                    <p>Ransomware is the nightmare that haunts organizations and individuals alike.</p>
+                    <h3>How do you get infected?</h3>
+                    <ul>
+                        <li><strong>Phishing</strong></li>
+                        <li><strong>Unpatched Vulnerabilities</strong></li>
+                        <li><strong>Remote Desktop Protocol (RDP)</strong></li>
+                    </ul>
+                    <h3>How to protect yourself?</h3>
+                    <ul>
+                        <li><strong>Offline Backups</strong></li>
+                        <li><strong>Update Systems Constantly</strong></li>
+                        <li><strong>Be Wary of Attachments and Links</strong></li>
+                        <li><strong>Use Advanced Security Solutions (EDR)</strong></li>
+                    </ul>
+                `
+            },
+            {
+                titleAr: "أمن إنترنت الأشياء (IoT Security)",
+                titleEn: "IoT Security",
+                contentAr: `
+                    <p>المنازل الحديثة أصبحت مليئة بالأجهزة الذكية: كاميرات المراقبة، أجهزة التلفاز الذكية، المساعدات الصوتية، وحتى الثلاجات. هذه هي "إنترنت الأشياء" (IoT).</p>
+                    <h3>ما الذي يحدث عندما تُخترق أجهزة IoT؟</h3>
+                    <ul>
+                        <li><strong>انتهاك الخصوصية</strong></li>
+                        <li><strong>هجمات البوت نت (Botnets)</strong></li>
+                        <li><strong>نقطة عبور للشبكة</strong></li>
+                    </ul>
+                    <h3>كيف تؤمن أجهزتك الذكية؟</h3>
+                    <ul>
+                        <li><strong>غير كلمة المرور الافتراضية فوراً</strong></li>
+                        <li><strong>أنشئ شبكة واي فاي منفصلة (Guest Network)</strong></li>
+                        <li><strong>حدث البرامج الثابتة (Firmware)</strong></li>
+                    </ul>
+                `,
+                contentEn: `
+                    <p>Modern homes are filled with smart devices. This is the "Internet of Things" (IoT).</p>
+                    <h3>What happens when IoT devices are hacked?</h3>
+                    <ul>
+                        <li><strong>Privacy Violation</strong></li>
+                        <li><strong>Botnet Attacks</strong></li>
+                        <li><strong>Network Pivot</strong></li>
+                    </ul>
+                    <h3>How to secure your smart devices?</h3>
+                    <ul>
+                        <li><strong>Change Default Passwords Immediately</strong></li>
+                        <li><strong>Create a Separate Wi-Fi Network</strong></li>
+                        <li><strong>Update Firmware</strong></li>
+                    </ul>
+                `
+            },
+            {
+                titleAr: "أساسيات التشفير (Encryption) للمستخدم العادي",
+                titleEn: "Encryption Basics for Everyday Use",
+                contentAr: `
+                    <p>كلمة "تشفير" قد تبدو معقدة وتقنية، ولكنها في الواقع جزء أساسي من حياتك اليومية. التشفير هو ببساطة عملية تحويل البيانات إلى كود غير مفهوم.</p>
+                    <h3>أين تستخدم التشفير يومياً؟</h3>
+                    <ul>
+                        <li><strong>مواقع الويب (HTTPS)</strong></li>
+                        <li><strong>تطبيقات المراسلة (End-to-End Encryption)</strong></li>
+                        <li><strong>تشفير الأجهزة (Disk Encryption)</strong></li>
+                    </ul>
+                    <h3>نصيحة للمستخدم العادي:</h3>
+                    <p>احرص دائماً على استخدام المواقع التي تبدأ بـ https:// وتأكد من عمل نسخ احتياطية لمفاتيح الاسترداد.</p>
+                `,
+                contentEn: `
+                    <p>The word "encryption" might sound complex, but it is actually an essential part of your daily life.</p>
+                    <h3>Where is encryption used daily?</h3>
+                    <ul>
+                        <li><strong>Websites (HTTPS)</strong></li>
+                        <li><strong>Messaging Apps (End-to-End Encryption)</strong></li>
+                        <li><strong>Disk Encryption</strong></li>
+                    </ul>
+                    <h3>Advice for the everyday user:</h3>
+                    <p>Always use websites starting with https:// and back up your Recovery Keys.</p>
+                `
+            }
+        ];
+
+        function openArticle(index) {
+            const isEn = document.body.classList.contains('en-mode');
+            const article = articles[index];
+            
+            document.getElementById('modalTitle').innerText = isEn ? article.titleEn : article.titleAr;
+            document.getElementById('modalBody').innerHTML = isEn ? article.contentEn : article.contentAr;
+            
+            document.getElementById('articleModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeArticle() {
+            document.getElementById('articleModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        document.getElementById('articleModal').addEventListener('click', function(e) {
+            if (e.target === this) closeArticle();
+        });
+
+        /* =========================================
+           Matrix Rain
+           ========================================= */
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = canvas.parentElement.offsetHeight;
+        let columns = Math.floor(width / 20); 
+        let yPositions = Array(columns).fill(0);
+        const chars = "アカサタナハマヤラワ0123456789ABCDEF";
+        
+        let animationId;
+
+        function drawMatrix() {
+            if (window.innerWidth <= 768 || !document.body.classList.contains('dark-mode')) {
+                ctx.clearRect(0, 0, width, height);
+                animationId = requestAnimationFrame(drawMatrix);
+                return;
+            }
+
+            ctx.fillStyle = "rgba(15, 23, 42, 0.1)";
+            ctx.fillRect(0, 0, width, height);
+
+            ctx.fillStyle = "#38bdf8";
+            ctx.font = "15px monospace";
+
+            for (let i = 0; i < yPositions.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * 20, yPositions[i] * 20);
+                
+                if (yPositions[i] * 20 > height && Math.random() > 0.975) {
+                    yPositions[i] = 0;
+                }
+                yPositions[i]++;
+            }
+            animationId = requestAnimationFrame(drawMatrix);
+        }
+
+        drawMatrix();
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = canvas.parentElement.offsetHeight;
+            columns = Math.floor(width / 20);
+            yPositions = Array(columns).fill(0);
+        });
+
+        /* =========================================
+           الوظائف الأساسية
+           ========================================= */
+        function updateBackToTopText(isEn) {
+            const btn = document.getElementById('backToTop');
+            if (!btn) return;
+            btn.innerHTML = isEn
+                ? '<i class="fas fa-arrow-up"></i> Back to Top'
+                : '<i class="fas fa-arrow-up"></i> العودة للأعلى';
+            btn.title = isEn ? 'Back to Top' : 'العودة للأعلى';
+            btn.setAttribute('aria-label', isEn ? 'Back to Top' : 'العودة للأعلى');
+        }
+
+        function toggleLanguage(isInit = false) {
+            const body = document.body;
+            const langBtn = document.getElementById('langBtn');
+            const elements = document.querySelectorAll('[data-ar]');
+            const placeholdersAr = document.querySelectorAll('[data-ar-ph]');
+            const searchInput = document.getElementById('searchInput');
+            
+            if (isInit && !body.classList.contains('en-mode')) {
+                // استمرار
+            } else if (body.classList.contains('en-mode') && !isInit) {
+                body.classList.remove('en-mode');
+                body.setAttribute('dir', 'rtl');
+                body.setAttribute('lang', 'ar');
+                langBtn.innerText = 'EN';
+                document.title = "محمد عبدالرحمن آل ردفان | الأمن السيبراني";
+                searchInput.placeholder = "بحث...";
+                elements.forEach(el => { el.innerHTML = el.getAttribute('data-ar'); });
+                placeholdersAr.forEach(el => { el.placeholder = el.getAttribute('data-ar-ph'); });
+                updateBackToTopText(false);
+                localStorage.setItem('lang', 'ar');
+                return;
+            }
+
+            body.classList.add('en-mode');
+            body.setAttribute('dir', 'ltr');
+            body.setAttribute('lang', 'en');
+            langBtn.innerText = 'AR';
+            document.title = "Mohammed Alredfan | Cybersecurity";
+            searchInput.placeholder = "Search...";
+            elements.forEach(el => { el.innerHTML = el.getAttribute('data-en'); });
+            placeholdersAr.forEach(el => { el.placeholder = el.getAttribute('data-en-ph'); });
+            updateBackToTopText(true);
+            localStorage.setItem('lang', 'en');
+            
+            if(document.getElementById('articleModal').classList.contains('active')) {
+                const currentTitle = document.getElementById('modalTitle').innerText;
+                const index = articles.findIndex(a => a.titleAr === currentTitle || a.titleEn === currentTitle);
+                if(index !== -1) openArticle(index);
+            }
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        function toggleSearch() {
+            const searchBox = document.getElementById('searchBox');
+            const searchInput = document.getElementById('searchInput');
+            const searchIcon = document.getElementById('searchIcon');
+            
+            if (searchBox.classList.contains('active')) {
+                searchBox.classList.remove('active');
+                searchInput.value = '';
+                searchIcon.classList.remove('fa-times');
+                searchIcon.classList.add('fa-search');
+                searchPage();
+            } else {
+                searchBox.classList.add('active');
+                searchInput.focus();
+                searchIcon.classList.remove('fa-search');
+                searchIcon.classList.add('fa-times');
+            }
+        }
+
+        function searchPage() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const text = section.innerText.toLowerCase();
+                if (input.length > 0 && text.includes(input)) {
+                    section.style.display = 'block';
+                } else if (input.length > 0) {
+                    section.style.display = 'none';
+                } else {
+                    section.style.display = 'block';
+                }
+            });
+        }
+
+        /* =========================================
+           قائمة الجوال
+           ========================================= */
+        (function () {
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+            if (!hamburger || !navLinks) return;
+
+            function closeMenu() {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            }
+
+            hamburger.addEventListener('click', function (e) {
+                e.stopPropagation();
+                navLinks.classList.toggle('active');
+                this.classList.toggle('active');
+                this.setAttribute('aria-expanded', this.classList.contains('active'));
+            });
+
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
+
+            document.addEventListener('click', function (e) {
+                if (!navLinks.classList.contains('active')) return;
+                if (hamburger.contains(e.target) || navLinks.contains(e.target)) return;
+                closeMenu();
+            });
+
+            window.addEventListener('resize', function () {
+                if (window.innerWidth > 768) closeMenu();
+            });
+        })();
+
+        /* =========================================
+           إخفاء الشريط + Scroll Spy + Back to Top
+           ========================================= */
+        (function () {
+            const navbar = document.querySelector('.navbar');
+            const backToTopBtn = document.getElementById('backToTop');
+            const sections = document.querySelectorAll('section');
+            const navAnchors = document.querySelectorAll('.nav-links a');
+            
+            if (!navbar) return;
+
+            const TOP_THRESHOLD = 10;
+            const HIDE_DELTA    = 5;
+
+            let lastY = window.scrollY;
+            let hidden = false;
+            let ticking = false;
+
+            function updateNavbar() {
+                const y = window.scrollY;
+                const navLinks = document.getElementById('navLinks');
+                const menuOpen = navLinks && navLinks.classList.contains('active');
+
+                if (y > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (y >= sectionTop - 150) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navAnchors.forEach(a => {
+                    a.classList.remove('active');
+                    if (a.getAttribute('href') === `#${current}`) {
+                        a.classList.add('active');
+                    }
+                });
+
+                if (menuOpen) {
+                    if (hidden) {
+                        navbar.classList.remove('nav-hidden');
+                        hidden = false;
+                    }
+                    lastY = y;
+                    ticking = false;
+                    return;
+                }
+
+                if (y <= TOP_THRESHOLD) {
+                    if (hidden) {
+                        navbar.classList.remove('nav-hidden');
+                        hidden = false;
+                    }
+                    lastY = y;
+                    ticking = false;
+                    return;
+                }
+
+                const delta = y - lastY;
+
+                if (!hidden && delta > HIDE_DELTA) {
+                    navbar.classList.add('nav-hidden');
+                    hidden = true;
+                }
+
+                lastY = y;
+                ticking = false;
+            }
+
+            window.addEventListener('scroll', function () {
+                if (!ticking) {
+                    window.requestAnimationFrame(updateNavbar);
+                    ticking = true;
+                }
+            }, { passive: true });
+
+            navbar.addEventListener('focusin', function () {
+                if (hidden) {
+                    navbar.classList.remove('nav-hidden');
+                    hidden = false;
+                }
+            });
+
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            updateNavbar();
+        })();
+
+        /* =========================================
+           إرسال نموذج التواصل — Formspree
+           ========================================= */
+        (function () {
+            const FORMSPREE_ID = 'xljgyjgq';
+            const ENDPOINT = 'https://formspree.io/f/' + FORMSPREE_ID;
+
+            const form = document.getElementById('contactForm');
+            if (!form) return;
+
+            const btn        = document.getElementById('submitBtn');
+            const btnText    = btn.querySelector('.btn-text');
+            const btnLoading = btn.querySelector('.btn-loading');
+            const status     = document.getElementById('formStatus');
+
+            const fields = form.querySelectorAll('input[required], textarea[required]');
+            fields.forEach(field => {
+                field.addEventListener('blur', () => validateField(field));
+                field.addEventListener('input', () => {
+                    if (field.classList.contains('invalid')) validateField(field);
+                });
+            });
+
+            function validateField(field) {
+                const valid = field.checkValidity();
+                field.classList.toggle('invalid', !valid);
+                return valid;
+            }
+
+            function showStatus(type, messageAr, messageEn) {
+                const isEn = document.body.classList.contains('en-mode');
+                status.textContent = isEn ? messageEn : messageAr;
+                status.className = 'form-status ' + type;
+            }
+
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                let allValid = true;
+                fields.forEach(field => {
+                    if (!validateField(field)) allValid = false;
+                });
+                if (!allValid) {
+                    const firstInvalid = form.querySelector('.invalid');
+                    if (firstInvalid) firstInvalid.focus();
+                    return;
+                }
+
+                btn.disabled = true;
+                btnText.style.display = 'none';
+                btnLoading.style.display = 'inline-block';
+                status.className = 'form-status';
+                status.style.display = 'none';
+
+                try {
+                    const response = await fetch(ENDPOINT, {
+                        method: 'POST',
+                        body: new FormData(form),
+                        headers: { 'Accept': 'application/json' }
+                    });
+
+                    if (response.ok) {
+                        showStatus('success',
+                            '✅ تم إرسال رسالتك بنجاح، سأعود إليك قريباً.',
+                            '✅ Your message was sent successfully. I will get back to you soon.'
+                        );
+                        form.reset();
+                        fields.forEach(f => f.classList.remove('invalid'));
+                    } else {
+                        const data = await response.json().catch(() => ({}));
+                        const serverMsg = data?.errors?.[0]?.message;
+                        showStatus('error',
+                            '⚠️ تعذّر الإرسال. ' + (serverMsg || 'الرجاء المحاولة لاحقاً.'),
+                            '⚠️ Failed to send. ' + (serverMsg || 'Please try again later.')
+                        );
+                    }
+                } catch (err) {
+                    showStatus('error',
+                        '⚠️ فشل الاتصال. تحقق من الإنترنت أو راسلني مباشرة على malredfan@gmail.com',
+                        '⚠️ Connection failed. Check your internet or email me at malredfan@gmail.com'
+                    );
+                } finally {
+                    btn.disabled = false;
+                    btnText.style.display = 'inline-block';
+                    btnLoading.style.display = 'none';
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
